@@ -23,6 +23,26 @@ pub fn clone_mkp244o<P: AsRef<Path>>(data_directory: P) -> Result<()> {
     Ok(())
 }
 
+pub fn cleanup_mkp244o<P: AsRef<Path>>(data_directory: P) -> Result<()> {
+    let output = if cfg!(target_os = "windows") {
+        bail!("Windows is not supported");
+    } else {
+        Command::new("sh")
+            .arg("-c")
+            .arg(
+                mkp224o_cleanup_command_string(data_directory)
+                    .context("Failed to construct command for cleaning up mkp224o")?,
+            )
+            .output()
+            .context("Failed to execute cleanup command for mkp224o")?
+    };
+    if output.status.success() {
+        Ok(())
+    } else {
+        bail!("{}", String::from_utf8_lossy(&output.stderr));
+    }
+}
+
 pub fn build_mkp244o<P: AsRef<Path>>(data_directory: P) -> Result<()> {
     let output = if cfg!(target_os = "windows") {
         bail!("Windows is not supported");
@@ -41,6 +61,73 @@ pub fn build_mkp244o<P: AsRef<Path>>(data_directory: P) -> Result<()> {
     } else {
         bail!("{}", String::from_utf8_lossy(&output.stderr));
     }
+}
+
+pub fn execute_mkp244o_command<P: AsRef<Path>>(
+    command: Vec<String>,
+    data_directory: P,
+) -> Result<String> {
+    let output = if cfg!(target_os = "windows") {
+        bail!("Windows is not supported");
+    } else {
+        Command::new("sh")
+            .arg("-c")
+            .arg(
+                execute_mkp224o_command_string(command, data_directory)
+                    .context("Failed to construct command for building mkp224o")?,
+            )
+            .output()
+            .context("Failed to execute build command for mkp224o")?
+    };
+    if output.status.success() {
+        Ok(String::from_utf8_lossy(&output.stdout).to_string())
+    } else {
+        bail!("{}", String::from_utf8_lossy(&output.stderr));
+    }
+}
+
+fn mkp224o_cleanup_command_string<P: AsRef<Path>>(data_directory: P) -> Result<String> {
+    let data_path = data_directory.as_ref();
+    let sources_path = escape(
+        data_path
+            .join(INTERNAL_MKP224O_SOURCE_PATH)
+            .to_str()
+            .context("Failed to construct path to mkp224o source")?
+            .to_string()
+            .into(),
+    );
+    let executable_path = escape(
+        data_path
+            .join(INTERNAL_MKP224O_EXECUTABLE_PATH)
+            .to_str()
+            .context("Failed to construct path to mkp224o executable")?
+            .to_string()
+            .into(),
+    );
+
+    Ok(format!(
+        "rm -f {} &&
+rm -rfd {}
+    ",
+        executable_path, sources_path
+    ))
+}
+
+fn execute_mkp224o_command_string<P: AsRef<Path>>(
+    command: Vec<String>,
+    data_directory: P,
+) -> Result<String> {
+    let data_path = data_directory.as_ref();
+    let executable_path = escape(
+        data_path
+            .join(INTERNAL_MKP224O_EXECUTABLE_PATH)
+            .to_str()
+            .context("Failed to construct path to mkp224o executable")?
+            .to_string()
+            .into(),
+    );
+
+    Ok(format!("{} {}", executable_path, command.join(" ")))
 }
 
 fn mkp224o_build_command_string<P: AsRef<Path>>(data_directory: P) -> Result<String> {
