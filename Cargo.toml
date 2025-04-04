@@ -1,0 +1,2 @@
+[workspace]
+members = ["crates/easytor", "crates/rust-mkp224o"]
