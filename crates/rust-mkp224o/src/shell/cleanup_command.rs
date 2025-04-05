@@ -1,6 +1,6 @@
 use crate::shell::command::Command;
-use std::path::PathBuf;
 use shell_escape::escape;
+use std::path::PathBuf;
 
 pub struct RemoveDirectoryCommand {
     arguments: RemoveArguments,
@@ -22,7 +22,10 @@ impl Command for RemoveFileCommand {
     }
 
     fn windows_command(&self) -> String {
-        format!("del /f /q \"{}\"", escape(self.arguments.path.to_string_lossy()))
+        format!(
+            "del /f /q \"{}\"",
+            escape(self.arguments.path.to_string_lossy())
+        )
     }
 
     fn linux_command(&self) -> String {
@@ -48,7 +51,10 @@ impl Command for RemoveDirectoryCommand {
     }
 
     fn windows_command(&self) -> String {
-        format!("rmdir /s /q \"{}\"", escape(self.arguments.path.to_string_lossy()))
+        format!(
+            "rmdir /s /q \"{}\"",
+            escape(self.arguments.path.to_string_lossy())
+        )
     }
 
     fn linux_command(&self) -> String {

@@ -33,4 +33,12 @@ pub struct Mkp224oCli {
         group = "command"
     )]
     pub update: bool,
+
+    #[arg(
+        short = 'r',
+        long = "remove",
+        help = "Removes the mkp224o installation.",
+        group = "command"
+    )]
+    pub remove: bool,
 }

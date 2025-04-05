@@ -2,9 +2,9 @@ use anyhow::Context;
 use log::debug;
 use rust_mkp224o::constants::INTERNAL_MKP224O_EXECUTABLE_PATH;
 use rust_mkp224o::data_directory;
-use rust_mkp224o::repository::mkp224o_command::{Mk224oCommand, Mk224oCommandArguments};
 use rust_mkp224o::shell::command::Command;
 use rust_mkp224o::shell::executor::CommandExecutor;
+use rust_mkp224o::shell::mkp224o_command::{Mk224oCommand, Mk224oCommandArguments};
 use std::fs;
 use std::io::{stdout, Write};
 

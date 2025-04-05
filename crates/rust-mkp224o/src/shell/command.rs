@@ -13,7 +13,9 @@ pub trait Command {
             self.windows_command()
         } else if cfg!(target_os = "linux") {
             self.linux_command()
-        } else /*macos*/ {
+        } else
+        /*macos*/
+        {
             self.macos_command()
         }
     }
@@ -27,4 +29,3 @@ pub trait Command {
     /// Gets the macos command
     fn macos_command(&self) -> String;
 }
-

@@ -5,10 +5,10 @@ use thiserror::Error;
 pub enum RepositoryError {
     #[error("The repository could not be cloned because the sources already existed at path {0}")]
     SourcesAlreadyExistError(PathBuf),
-    
+
     #[error("Cloning the repository failed: {0}")]
     CloneError(anyhow::Error),
-    
+
     #[error("Building the repository failed: {0}")]
     BuildError(anyhow::Error),
 
@@ -20,7 +20,7 @@ pub enum RepositoryError {
 pub enum CommandError {
     #[error("Cannot execute command for the platform: {0}")]
     UnsupportedExecutionPlatformError(String),
-    
+
     #[error("The command could not be executed: {0}")]
     CommandExecutionFailedError(String),
 }

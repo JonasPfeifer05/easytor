@@ -5,6 +5,7 @@ mod logger;
 use crate::cli::Mkp224oCli;
 use crate::commands::execute::execute_mkp224o_command;
 use crate::commands::install::install;
+use crate::commands::uninstall::uninstall;
 use crate::logger::Logger;
 use anyhow::{bail, Result};
 use clap::Parser;
@@ -18,6 +19,8 @@ fn main() -> Result<()> {
         execute_mkp224o_command(command)?
     } else if cli.install || cli.update {
         install()?
+    } else if cli.remove {
+        uninstall()?
     } else {
         bail!("Why are you here? This should not be possible? Goodbye 🫡")
     }

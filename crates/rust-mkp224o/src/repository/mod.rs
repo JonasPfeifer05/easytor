@@ -1,10 +1,7 @@
-use std::path::Path;
 use anyhow::Result;
+use std::path::Path;
 
 pub mod git;
-pub mod build_command;
-pub mod cleanup_command;
-pub mod mkp224o_command;
 
 pub trait SourceRepository {
     /// Clone the repository from a URL into a target directory
@@ -24,7 +21,7 @@ pub trait SourceRepository {
 
     /// Check if the repository has already been cloned
     fn is_cloned(&self) -> bool;
-    
+
     /// Build the mkp224o executable from the sources
     fn build(&self) -> Result<()>;
 

@@ -13,3 +13,5 @@
 - ❌ Enable/Disable tor
 - ❌ Creating new tor services
 -  List all tor services
+
+## Usage on macos

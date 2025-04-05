@@ -1,4 +1,3 @@
-
 pub struct Logger;
 impl Logger {
     pub fn init_with_default_level<S: Into<String>>(level: S) {

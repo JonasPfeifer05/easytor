@@ -1,6 +1,6 @@
 use crate::shell::command::Command;
-use std::path::PathBuf;
 use shell_escape::escape;
+use std::path::PathBuf;
 
 pub struct Mk224oCommand {
     pub arguments: Mk224oCommandArguments,

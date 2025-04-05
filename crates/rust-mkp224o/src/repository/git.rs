@@ -1,11 +1,9 @@
 use crate::constants::{INTERNAL_MKP224O_EXECUTABLE_PATH, INTERNAL_MKP224O_SOURCE_PATH};
 use crate::data_directory;
 use crate::error::RepositoryError;
-use crate::repository::build_command::{BuildCommand, BuildCommandArguments};
-use crate::repository::cleanup_command::{
-    RemoveArguments, RemoveDirectoryCommand, RemoveFileCommand,
-};
 use crate::repository::SourceRepository;
+use crate::shell::build_command::{BuildCommand, BuildCommandArguments};
+use crate::shell::cleanup_command::{RemoveArguments, RemoveDirectoryCommand, RemoveFileCommand};
 use crate::shell::command::Command;
 use crate::shell::executor::CommandExecutor;
 use anyhow::bail;
