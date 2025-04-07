@@ -1,6 +1,7 @@
 use crate::shell::command::Command;
 use shell_escape::escape;
 use std::path::PathBuf;
+use anyhow::Result;
 
 pub struct BuildCommand {
     arguments: BuildCommandArguments,
@@ -22,8 +23,8 @@ impl Command for BuildCommand {
         todo!("Windows is not supported")
     }
 
-    fn linux_command(&self) -> String {
-        format!(
+    fn linux_command(&self) -> Result<String> {
+        Ok(format!(
             "cd {} &&
 ./autogen.sh &&
 ./configure &&
@@ -32,7 +33,7 @@ mv ./mkp224o {}
 ",
             escape(self.arguments.sources_directory.to_string_lossy()),
             escape(self.arguments.target_path.to_string_lossy())
-        )
+        ))
     }
 
     fn macos_command(&self) -> String {

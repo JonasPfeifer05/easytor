@@ -10,20 +10,13 @@ use rust_mkp224o::shell::command::Command;
 use rust_mkp224o::shell::executor::CommandExecutor;
 use rust_mkp224o::shell::packages_command::PackageCommand;
 use std::fs;
-use std::io::stdin;
 
 pub fn install() -> Result<()> {
     info!("Starting to install mkp224o");
 
-    if cfg!(target_os = "macos") {
-        println!("For the installation you will need brew already installed!");
-        println!("Do you have brew installed? y/n!");
-
-        let mut input = String::new();
-        stdin().read_line(&mut input)?;
-        if input.trim().to_lowercase() == "n" {
-            return Ok(());
-        }
+    if cfg!(target_os = "macos") && which::which("brew").is_err() {
+        println!("Brew is required to install and build mkp224o! Please install it!");
+        return Ok(());
     }
 
     let data_directory =

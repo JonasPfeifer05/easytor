@@ -1,4 +1,5 @@
 use crate::shell::command::Command;
+use anyhow::Result;
 use shell_escape::escape;
 use std::path::PathBuf;
 
@@ -28,8 +29,8 @@ impl Command for RemoveFileCommand {
         )
     }
 
-    fn linux_command(&self) -> String {
-        self.unix_command()
+    fn linux_command(&self) -> Result<String> {
+        Ok(self.unix_command())
     }
 
     fn macos_command(&self) -> String {
@@ -57,8 +58,8 @@ impl Command for RemoveDirectoryCommand {
         )
     }
 
-    fn linux_command(&self) -> String {
-        self.unix_command()
+    fn linux_command(&self) -> Result<String> {
+        Ok(self.unix_command())
     }
 
     fn macos_command(&self) -> String {

@@ -1,6 +1,7 @@
 use crate::shell::command::Command;
 use shell_escape::escape;
 use std::path::PathBuf;
+use anyhow::Result;
 
 pub struct Mk224oCommand {
     pub arguments: Mk224oCommandArguments,
@@ -22,8 +23,8 @@ impl Command for Mk224oCommand {
         self.command()
     }
 
-    fn linux_command(&self) -> String {
-        self.command()
+    fn linux_command(&self) -> Result<String> {
+        Ok(self.command())
     }
 
     fn macos_command(&self) -> String {

@@ -1,3 +1,5 @@
+use anyhow::Result;
+
 pub trait Command {
     type Arguments;
 
@@ -8,15 +10,15 @@ pub trait Command {
     fn new(arguments: Self::Arguments) -> Self;
 
     /// Gets the command for the correct platform
-    fn command(&self) -> String {
+    fn command(&self) -> Result<String> {
         if cfg!(target_os = "windows") {
-            self.windows_command()
+            Ok(self.windows_command())
         } else if cfg!(target_os = "linux") {
             self.linux_command()
         } else
         /*macos*/
         {
-            self.macos_command()
+           Ok(self.macos_command())
         }
     }
 
@@ -24,7 +26,7 @@ pub trait Command {
     fn windows_command(&self) -> String;
 
     /// Gets the linux command
-    fn linux_command(&self) -> String;
+    fn linux_command(&self) -> Result<String>;
 
     /// Gets the macos command
     fn macos_command(&self) -> String;

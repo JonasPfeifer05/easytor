@@ -18,3 +18,4 @@ thiserror = "1.0.56"
 toml = "0.8.10"
 indicatif = { version = "0.17.7", features = ["improved_unicode"] }
 console = "0.15.8"
+which = "7.0.2"

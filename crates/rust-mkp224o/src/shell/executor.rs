@@ -23,7 +23,7 @@ impl CommandExecutor {
         };
 
         let output = process
-            .arg(command.command())
+            .arg(command.command()?)
             .output()
             .map_err(|err| CommandError::CommandExecutionFailedError(err.to_string()))?;
 
